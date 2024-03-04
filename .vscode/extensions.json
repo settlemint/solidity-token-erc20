@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "nomicfoundation.hardhat-solidity",
+    "miguelsolorio.fluent-icons",
+    "vscode-icons-team.vscode-icons",
+    "github.github-vscode-theme",
+    "genieai.chatgpt-vscode",
+    "esbenp.prettier-vscode",
+    "dracula-theme.theme-dracula",
+    "cnshenj.vscode-task-manager"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "make build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "test",
+      "type": "shell",
+      "command": "make test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "format",
+      "type": "shell",
+      "command": "make format",
+      "problemMatcher": []
+    },
+    {
+      "label": "snapshot",
+      "type": "shell",
+      "command": "make snapshot",
+      "problemMatcher": []
+    },
+    {
+      "label": "anvil",
+      "type": "shell",
+      "command": "make anvil",
+      "problemMatcher": []
+    },
+    {
+      "label": "deploy-anvil",
+      "type": "shell",
+      "command": "make deploy-anvil",
+      "problemMatcher": []
+    },
+    {
+      "label": "deploy-btp",
+      "type": "shell",
+      "command": "make deploy-btp",
+      "problemMatcher": []
+    },
+    {
+      "label": "cast",
+      "type": "shell",
+      "command": "make cast",
+      "problemMatcher": []
+    },
+    {
+      "label": "subgraph",
+      "type": "shell",
+      "command": "make subgraph",
+      "problemMatcher": []
+    },
+    {
+      "label": "help",
+      "type": "shell",
+      "command": "make help",
+      "problemMatcher": []
+    }
+  ]
+}

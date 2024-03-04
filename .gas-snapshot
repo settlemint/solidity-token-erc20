@@ -1,0 +1,4 @@
+GenericERC20Test:testFailMintWhenPaused() (gas: 16431)
+GenericERC20Test:testInitialMint() (gas: 11140)
+GenericERC20Test:testMint() (gas: 25865)
+GenericERC20Test:testPauseUnpause() (gas: 13181)
