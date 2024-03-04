@@ -62,19 +62,27 @@ contract GenericERC20Test is Test {
     }
 
     function testFuzzTransfer(address _from, address _to, uint256 _amount) public {
-        // Skip tests that attempt to transfer to the zero address
-        if (_to == address(0)) return;
+        // Ensure neither address is the zero address
+        if (_from == address(0) || _to == address(0)) return;
 
-        // Setup: Ensure _from has tokens to transfer
-        uint256 setupAmount = 1000 * 10 ** token.decimals();
-        token.mint(_from, setupAmount);
+        // Mint tokens to the _from address before transferring
+        uint256 mintAmount = 1e21; // Adjust as necessary
+        token.mint(_from, mintAmount);
 
-        // Prevent extremely large values for _amount to avoid overflow and ensure it's less than setupAmount
-        uint256 transferAmount = _amount % setupAmount;
-        vm.prank(_from); // Forge's way to simulate calls from specific addresses
-        token.transfer(_to, transferAmount);
+        // Get initial balances
+        uint256 initialBalanceFrom = token.balanceOf(_from);
+        uint256 initialBalanceTo = token.balanceOf(_to);
 
-        uint256 finalBalance = token.balanceOf(_to);
-        assertEq(finalBalance, transferAmount, "Transfer did not result in correct final balance");
+        // Perform the transfer
+        vm.prank(_from);
+        token.transfer(_to, _amount);
+
+        // Get final balances
+        uint256 finalBalanceFrom = token.balanceOf(_from);
+        uint256 finalBalanceTo = token.balanceOf(_to);
+
+        // Check that the final balances are correct
+        assertEq(finalBalanceFrom, initialBalanceFrom - _amount, "Incorrect final balance for sender");
+        assertEq(finalBalanceTo, initialBalanceTo + _amount, "Transfer did not result in correct final balance");
     }
 }
