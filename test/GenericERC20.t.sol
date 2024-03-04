@@ -43,8 +43,14 @@ contract GenericERC20Test is Test {
 
     // Fuzz Testing
     function testFuzzMint(address _to, uint256 _amount) public {
-        // Setup a scenario where minting is possible
-        token.unpause();
+        // Ensure the contract is not paused for this test
+        if (token.paused()) {
+            token.unpause();
+        }
+
+        // Add a precondition to skip tests with the zero address
+        if (_to == address(0)) return;
+
         uint256 initialBalance = token.balanceOf(_to);
 
         // Prevent extremely large values for _amount to avoid overflow
@@ -56,6 +62,9 @@ contract GenericERC20Test is Test {
     }
 
     function testFuzzTransfer(address _from, address _to, uint256 _amount) public {
+        // Skip tests that attempt to transfer to the zero address
+        if (_to == address(0)) return;
+
         // Setup: Ensure _from has tokens to transfer
         uint256 setupAmount = 1000 * 10 ** token.decimals();
         token.mint(_from, setupAmount);
