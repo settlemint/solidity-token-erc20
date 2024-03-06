@@ -27,6 +27,7 @@ deploy-anvil:
 	@forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt
 
 deploy:
+	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
 	@if [ "${BTP_MAINNET}" = "true" ]; then \
 		if [ -z "${ETHERSCAN_API_KEY}" ]; then \
 			echo "Deploying with verification on sourcify..."; \
