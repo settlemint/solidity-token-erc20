@@ -31,9 +31,9 @@ deploy:
 	@if [ -z "${ETH_FROM}" ]; then \
 		echo "\033[1;33mWARNING: No keys are activated on the node, falling back to interactive mode...\033[0m"; \
 		echo ""; \
-		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --interactive ${VERIFICATION_OPTIONS} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 	else \
-		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --unlocked ${VERIFICATION_OPTIONS} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --unlocked --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 	fi
 
 cast:
