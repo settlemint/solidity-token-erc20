@@ -28,17 +28,12 @@ deploy-anvil:
 
 deploy:
 	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
-	@if [ "${BTP_MAINNET}" = "true" ]; then \
-		if [ -z "${ETHERSCAN_API_KEY}" ]; then \
-			echo "Deploying with verification on sourcify..."; \
-			forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url btp --unlocked --watch --verify --verifier sourcify --constructor-args "GenericToken" "GT" | tee deployment.txt; \
-		else \
-			echo "Deploying with verification on etherscan..."; \
-			forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url btp --unlocked --watch --verify --verifier etherscan --etherscan-api-key ${ETHERSCAN_API_KEY} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
-		fi \
+	@if [ -z "${ETH_FROM}" ]; then \
+		echo "\033[1;33mWARNING: No keys are activated on the node, falling back to interactive mode...\033[0m"; \
+		echo ""; \
+		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --interactive ${VERIFICATION_OPTIONS} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 	else \
-		echo "Deploying without verification..."; \
-		forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url btp --unlocked --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --unlocked ${VERIFICATION_OPTIONS} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 	fi
 
 cast:
@@ -58,7 +53,7 @@ subgraph:
 	@yq e '.features = ["nonFatalErrors", "fullTextSearch", "ipfsOnEthereumContracts"]' -i generated/solidity-token-erc20.subgraph.yaml
 	@pnpm graph codegen generated/solidity-token-erc20.subgraph.yaml
 	@pnpm graph build generated/solidity-token-erc20.subgraph.yaml
-	@eval $$(curl -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
+	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
 	@if [ "$${BTP_MIDDLEWARE}" == "" ]; then \
 		echo "You have not launched a graph middleware for this smart contract set, aborting..."; \
 		exit 1; \

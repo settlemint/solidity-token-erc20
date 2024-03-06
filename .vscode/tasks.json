@@ -45,7 +45,7 @@
     {
       "label": "deploy",
       "type": "shell",
-      "command": "make deploy",
+      "command": "EXTRA_ARGS=\"${input:extra-deployment-verify} ${input:extra-deployment-other}\" make deploy",
       "problemMatcher": []
     },
     {
@@ -65,6 +65,25 @@
       "type": "shell",
       "command": "make help",
       "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "extra-deployment-verify",
+      "description": "Extra deployment options?",
+      "default": "",
+      "type": "pickString",
+      "options": [
+        "",
+        "--verify --verifier sourcify",
+        "--verify --verifier etherscan --etherscan-api-key ${ETHERSCAN_API_KEY}"
+      ]
+    },
+    {
+      "id": "extra-deployment-other",
+      "description": "Other extra deployment options?",
+      "default": "",
+      "type": "promptString"
     }
   ]
 }
