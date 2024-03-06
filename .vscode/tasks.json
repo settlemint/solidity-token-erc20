@@ -43,9 +43,9 @@
       "problemMatcher": []
     },
     {
-      "label": "deploy-btp",
+      "label": "deploy",
       "type": "shell",
-      "command": "make deploy-btp",
+      "command": "make deploy",
       "problemMatcher": []
     },
     {

@@ -1,6 +1,6 @@
 # Makefile for Foundry Ethereum Development Toolkit
 
-.PHONY: build test format snapshot anvil deploy cast help subgraph
+.PHONY: build test format snapshot anvil deploy deploy-anvil cast help subgraph
 
 build:
 	@echo "Building with Forge..."
@@ -26,7 +26,7 @@ deploy-anvil:
 	@echo "Deploying with Forge to Anvil..."
 	@forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt
 
-deploy-btp:
+deploy:
 	@if [ "${BTP_MAINNET}" = "true" ]; then \
 		if [ -z "${ETHERSCAN_API_KEY}" ]; then \
 			echo "Deploying with verification on sourcify..."; \
