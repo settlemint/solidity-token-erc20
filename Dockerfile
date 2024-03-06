@@ -16,10 +16,6 @@ RUN cd usecase/subgraph && \
   npm install
 
 USER root
-RUN chmod g+rw /usecase && \
-  chgrp -R 0 /usecase && \
-  chmod -R g=u /usecase && \
-  chmod -R 777 /usecase
 
 FROM busybox
 
