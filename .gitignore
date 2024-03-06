@@ -15,6 +15,7 @@ docs/
 
 # Subgraphs
 deployment.txt
+deployment-anvil.txt
 subgraph/subgraph.config.json
 subgraph/node_modules
 subgraph/generated
