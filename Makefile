@@ -57,8 +57,9 @@ subgraph:
 		echo "You have not launched a graph middleware for this smart contract set, aborting..."; \
 		exit 1; \
 	else \
-		cd subgraph && pnpm graph create --node $${BTP_MIDDLEWARE} $${BTP_SCS_NAME}; \
-		cd subgraph && pnpm graph deploy --version-label v1.0.$$(date +%s) --node $${BTP_MIDDLEWARE} --ipfs $${BTP_IPFS}/api/v0 $${BTP_SCS_NAME} generated/solidity-token-erc20.subgraph.yaml; \
+		cd subgraph; \
+		pnpm graph create --node $${BTP_MIDDLEWARE} $${BTP_SCS_NAME}; \
+		pnpm graph deploy --version-label v1.0.$$(date +%s) --node $${BTP_MIDDLEWARE} --ipfs $${BTP_IPFS}/api/v0 $${BTP_SCS_NAME} generated/solidity-token-erc20.subgraph.yaml; \
 	fi
 
 help:
