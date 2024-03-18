@@ -34,13 +34,13 @@ deploy:
 		if [ -z "$${BTP_GAS_PRICE}" ]; then \
 			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 		else \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --gas-price $${BTP_GAS_PRICE} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
 		fi; \
 	else \
 		if [ -z "$${BTP_GAS_PRICE}" ]; then \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
 		else \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --gas-price $${BTP_GAS_PRICE} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
 		fi; \
 	fi
 
