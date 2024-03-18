@@ -27,13 +27,21 @@ deploy-anvil:
 	@forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil --interactive --constructor-args "GenericToken" "GT" | tee deployment-anvil.txt
 
 deploy:
-	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
-	@if [ -z "${ETH_FROM}" ]; then \
+	@eval $$(curl -H "x-auth-token: $${BTP_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
+	if [ -z "$${BTP_FROM}" ]; then \
 		echo "\033[1;33mWARNING: No keys are activated on the node, falling back to interactive mode...\033[0m"; \
 		echo ""; \
-		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		if [ -z "$${BTP_GAS_PRICE}" ]; then \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		else \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
+		fi; \
 	else \
-		forge create ./src/GenericERC20.sol:GenericERC20 ${EXTRA_ARGS} --rpc-url ${BTP_RPC_URL} --unlocked --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		if [ -z "$${BTP_GAS_PRICE}" ]; then \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
+		else \
+			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
+		fi; \
 	fi
 
 cast:
@@ -52,8 +60,8 @@ subgraph:
 	@cd subgraph && yq e '.features = ["nonFatalErrors", "fullTextSearch", "ipfsOnEthereumContracts"]' -i generated/solidity-token-erc20.subgraph.yaml
 	@cd subgraph && pnpm graph codegen generated/solidity-token-erc20.subgraph.yaml
 	@cd subgraph && pnpm graph build generated/solidity-token-erc20.subgraph.yaml
-	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /')
-	@if [ "$${BTP_MIDDLEWARE}" == "" ]; then \
+	@eval $$(curl -H "x-auth-token: $${BTP_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
+	if [ "$${BTP_MIDDLEWARE}" == "" ]; then \
 		echo "You have not launched a graph middleware for this smart contract set, aborting..."; \
 		exit 1; \
 	else \
