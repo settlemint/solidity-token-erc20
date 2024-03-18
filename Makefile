@@ -28,7 +28,7 @@ deploy-anvil:
 
 deploy:
 	@eval $$(curl -H "x-auth-token: $${BPT_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
-	if [ -z "$${ETH_FROM}" ]; then \
+	if [ -z "$${BTP_FROM}" ]; then \
 		echo "\033[1;33mWARNING: No keys are activated on the node, falling back to interactive mode...\033[0m"; \
 		echo ""; \
 		if [ -z "$${BTP_GAS_PRICE}" ]; then \
