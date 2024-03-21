@@ -45,7 +45,7 @@
     {
       "label": "deploy-btp",
       "type": "shell",
-      "command": "EXTRA_ARGS=\"${input:extra-deployment-verify} ${input:extra-deployment-other}\" make deploy",
+      "command": "EXTRA_ARGS=\"${input:extra-deployment-verify} ${input:extra-deployment-other}\" make deploy-btp",
       "problemMatcher": []
     },
     {
