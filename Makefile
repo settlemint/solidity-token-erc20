@@ -26,23 +26,23 @@ deploy-anvil:
 	@echo "Deploying with Forge to Anvil..."
 	@forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil --interactive --constructor-args "GenericToken" "GT" | tee deployment-anvil.txt
 
-deploy:
+deploy-btp:
 	@eval $$(curl -H "x-auth-token: $${BTP_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
-	if [ -z "$${BTP_FROM}" ]; then \
+	args=""; \
+	if [ ! -z "$${BTP_FROM}" ]; then \
+		args="--unlocked --from $${BTP_FROM}"; \
+	else \
 		echo "\033[1;33mWARNING: No keys are activated on the node, falling back to interactive mode...\033[0m"; \
 		echo ""; \
-		if [ -z "$${BTP_GAS_PRICE}" ]; then \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" | tee deployment.txt; \
-		else \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --interactive --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
-		fi; \
-	else \
-		if [ -z "$${BTP_GAS_PRICE}" ]; then \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" | tee deployment.txt; \
-		else \
-			forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} --unlocked --from $${BTP_FROM} --constructor-args "GenericToken" "GT" --gas-price $${BTP_GAS_PRICE} | tee deployment.txt; \
-		fi; \
-	fi
+		args="--interactive"; \
+	fi; \
+	if [ ! -z "$${BTP_GAS_PRICE}" ]; then \
+		args="$$args --gas-price $${BTP_GAS_PRICE}"; \
+	fi; \
+	if [ "$${BTP_EIP_1559_ENABLED}" = "false" ]; then \
+		args="$$args --legacy"; \
+	fi; \
+	forge create ./src/GenericERC20.sol:GenericERC20 $${EXTRA_ARGS} --rpc-url $${BTP_RPC_URL} $$args --constructor-args "GenericToken" "GT" | tee deployment.txt;
 
 cast:
 	@echo "Interacting with EVM via Cast..."
