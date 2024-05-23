@@ -58,7 +58,7 @@ jobs:
         uses: sigstore/cosign-installer@v3
 
       - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'      
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -80,6 +80,25 @@ jobs:
         run: |
           forge test -vvv
         id: test
+
+      - name: Setup LCOV
+        if: github.event_name == 'pull_request'
+        uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Run Forge Coverage
+        if: github.event_name == 'pull_request'
+        run: |
+          forge coverage --report lcov --report summary
+        id: coverage
+
+      - name: Report code coverage
+        if: github.event_name == 'pull_request'
+        uses: zgosalvez/github-actions-report-lcov@v4.1.8
+        with:
+          coverage-files: lcov.info
+          minimum-coverage: 90
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          update-comment: true
 
       - name: Docker meta
         if: github.event_name != 'pull_request'
