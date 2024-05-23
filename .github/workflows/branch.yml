@@ -98,6 +98,8 @@ jobs:
       - name: Run an anvil deployment
         run: |
           make deploy-anvil
+        env:
+          ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
 
       - name: Check if subgraph folder exists
         id: check_subgraph
@@ -108,12 +110,6 @@ jobs:
         working-directory: subgraph
         run: |
           npm install
-
-      - name: Build the subgraph
-        if: env.subgraph_exists == 'true'
-        working-directory: subgraph
-        run: |
-          npm install          
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'
