@@ -36,7 +36,11 @@ jobs:
   check:
     strategy:
       fail-fast: true
-
+    services:
+      foundry:
+        image: ghcr.io/settlemint/btp-anvil-test-node:latest
+        ports:
+          - "8545:8545"
     name: Foundry project
     runs-on: namespace-profile-foundry
     steps:
@@ -90,6 +94,39 @@ jobs:
         run: |
           forge coverage --report lcov --report summary
         id: coverage
+
+      - name: Run an anvil deployment
+        run: |
+          make deploy-anvil
+          cp deployment-anvil.txt deployment.txt
+        env:
+          ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
+
+      - name: Check if subgraph folder exists
+        id: check_subgraph
+        run: echo "subgraph_exists=$(if [ -d subgraph ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
+
+      - name: Install npm dependencies for subgraph
+        if: env.subgraph_exists == 'true'
+        working-directory: subgraph
+        run: |
+          npm install
+
+      - name: Install YQ
+        if: env.subgraph_exists == 'true'
+        uses: alexellis/arkade-get@master
+        with:
+          print-summary: false
+          yq: latest
+
+      - name: Build the subgraph
+        if: env.subgraph_exists == 'true'
+        run: |
+          make subgraph
+        env:
+          ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
+          BTP_RPC_URL: http://localhost:8545
+          BTP_NODE_UNIQUE_NAME: anvil
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'

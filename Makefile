@@ -25,7 +25,13 @@ anvil:
 
 deploy-anvil:
 	@echo "Deploying with Forge to Anvil..."
-	@forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil --interactive --constructor-args "GenericToken" "GT" | tee deployment-anvil.txt
+	args=""; \
+	if [ ! -z "$${ANVIL_TESTS_PRIVATE_KEY}" ]; then \
+		args="--private-key $${ANVIL_TESTS_PRIVATE_KEY}"; \
+	else \
+		args="--interactive"; \
+	fi; \
+	forge create ./src/GenericERC20.sol:GenericERC20 --rpc-url anvil $$args --constructor-args "GenericToken" "GT" | tee deployment-anvil.txt
 
 deploy-btp:
 	@eval $$(curl -H "x-auth-token: $${BTP_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
@@ -62,8 +68,10 @@ subgraph:
 	@cd subgraph && npx graph build generated/solidity-token-erc20.subgraph.yaml
 	@eval $$(curl -H "x-auth-token: $${BTP_SERVICE_TOKEN}" -s $${BTP_CLUSTER_MANAGER_URL}/ide/foundry/$${BTP_SCS_ID}/env | sed 's/^/export /'); \
 	if [ -z "$${BTP_MIDDLEWARE}" ]; then \
-		echo "\033[1;31mERROR: You have not launched a graph middleware for this smart contract set, aborting...\033[0m"; \
-		exit 1; \
+		if [ -z "$${ANVIL_TESTS_PRIVATE_KEY}" ]; then \
+			echo "\033[1;31mERROR: You have not launched a graph middleware for this smart contract set, aborting...\033[0m"; \
+			exit 1; \
+		fi \
 	else \
 		cd subgraph; \
 		npx graph create --node $${BTP_MIDDLEWARE} $${BTP_SCS_NAME}; \
