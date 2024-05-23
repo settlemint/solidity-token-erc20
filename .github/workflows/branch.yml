@@ -111,6 +111,13 @@ jobs:
         run: |
           npm install
 
+      - name: Build the subgraph
+        if: env.subgraph_exists == 'true'
+        run: |
+          make subgraph
+        env:
+          ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
+
       - name: Report code coverage
         if: github.event_name == 'pull_request'
         uses: zgosalvez/github-actions-report-lcov@v4.1.8
