@@ -58,4 +58,4 @@ jobs:
           commit-message: Update forge dependencies
           delete-branch: true
           title: "chore: Update forge dependencies"
-          token: ${{ secrets.PAT_TOKEN }}
+          git-token: ${{ secrets.PAT_TOKEN }}
