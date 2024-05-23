@@ -91,6 +91,18 @@ jobs:
           forge coverage --report lcov --report summary
         id: coverage
 
+
+      - name: Check if subgraph folder exists
+        id: check_subgraph
+        run: echo "subgraph_exists=$(if [ -d subgraph ]; then echo true; else echo false; fi)" >> $GITHUB_ENV
+
+      - name: Install npm dependencies for subgraph
+        if: env.subgraph_exists == 'true'
+        run: |
+          cd subgraph
+          npm install
+
+
       - name: Report code coverage
         if: github.event_name == 'pull_request'
         uses: zgosalvez/github-actions-report-lcov@v4.1.8
