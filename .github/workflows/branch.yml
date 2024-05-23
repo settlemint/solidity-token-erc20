@@ -36,7 +36,11 @@ jobs:
   check:
     strategy:
       fail-fast: true
-
+    services:
+      foundry:
+        image: ghcr.io/settlemint/btp-anvil-test-node:latest
+        ports:
+          - "8545:8545"
     name: Foundry project
     runs-on: namespace-profile-foundry
     steps:
@@ -98,10 +102,15 @@ jobs:
 
       - name: Install npm dependencies for subgraph
         if: env.subgraph_exists == 'true'
+        working-directory: subgraph
         run: |
-          cd subgraph
           npm install
 
+      - name: Build the subgraph
+        if: env.subgraph_exists == 'true'
+        working-directory: subgraph
+        run: |
+          npm install          
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'
