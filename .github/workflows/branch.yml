@@ -93,11 +93,10 @@ jobs:
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'
-        uses: zgosalvez/github-actions-report-lcov@v3
+        uses: zgosalvez/github-actions-report-lcov@v4
         with:
           coverage-files: lcov.info
           minimum-coverage: 90
-          artifact-name: code-coverage-report
           github-token: ${{ secrets.GITHUB_TOKEN }}
           update-comment: true
 
