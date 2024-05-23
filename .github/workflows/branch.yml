@@ -125,6 +125,7 @@ jobs:
           make subgraph
         env:
           ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
+          BTP_RPC_URL: http://localhost:8545
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'
