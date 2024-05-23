@@ -1,0 +1,55 @@
+name: Forge Dependencies
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+env:
+  FOUNDRY_PROFILE: ci
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+
+jobs:
+  deps:
+    name: Foundry dependencies
+    runs-on: namespace-profile-foundry
+    steps:
+      - name: Checkout
+        uses: namespacelabs/nscloud-checkout-action@v2
+        with:
+          submodules: recursive
+
+      - name: Setup caches
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: |
+            cache
+            out
+            ~/.foundry
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Run Forge update
+        run: |
+          forge update
