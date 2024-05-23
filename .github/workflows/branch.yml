@@ -126,6 +126,7 @@ jobs:
         env:
           ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
           BTP_RPC_URL: http://localhost:8545
+          BTP_NODE_UNIQUE_NAME: anvil
 
       - name: Report code coverage
         if: github.event_name == 'pull_request'
