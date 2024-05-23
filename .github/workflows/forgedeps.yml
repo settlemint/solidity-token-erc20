@@ -34,8 +34,6 @@ jobs:
     steps:
       - name: Checkout
         uses: namespacelabs/nscloud-checkout-action@v2
-        with:
-          submodules: recursive
 
       - name: Setup caches
         uses: namespacelabs/nscloud-cache-action@v1
