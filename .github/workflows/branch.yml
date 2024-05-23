@@ -95,6 +95,9 @@ jobs:
           forge coverage --report lcov --report summary
         id: coverage
 
+      - name: Run an anvil deployment
+        run: |
+          make deploy-anvil
 
       - name: Check if subgraph folder exists
         id: check_subgraph
