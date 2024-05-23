@@ -128,6 +128,12 @@ jobs:
           BTP_RPC_URL: http://localhost:8545
           BTP_NODE_UNIQUE_NAME: anvil
 
+      - name: Run subgraph tests
+        if: env.subgraph_exists == 'true'
+        working-directory: subgraph
+        run: |
+          node_modules/.bin/graph test build/subgraph.yaml
+
       - name: Report code coverage
         if: github.event_name == 'pull_request'
         uses: zgosalvez/github-actions-report-lcov@v4.1.8
