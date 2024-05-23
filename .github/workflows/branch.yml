@@ -98,6 +98,7 @@ jobs:
       - name: Run an anvil deployment
         run: |
           make deploy-anvil
+          cp deployment-anvil.txt deployment.txt
         env:
           ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
 
