@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.24;
+pragma solidity 0.8.26;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
@@ -15,7 +15,7 @@ contract GenericERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Perm
     /// deploying address.
     /// @param name The name of the token.
     /// @param symbol The symbol of the token.
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) ERC20Permit(name) {
+    constructor(string memory name, string memory symbol) payable ERC20(name, symbol) Ownable(msg.sender) ERC20Permit(name) {
         // Mint 100,000 tokens to the deploying address, adjusting for the token's decimals.
         _mint(msg.sender, 100_000 * 10 ** decimals());
     }
@@ -46,5 +46,11 @@ contract GenericERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Perm
     /// @param value The amount of tokens to be transferred.
     function _update(address from, address to, uint256 value) internal override(ERC20, ERC20Pausable) {
         super._update(from, to, value);
+    }
+
+    /// @dev Withdraws all Ether from the contract to the owner's address.
+    /// @notice This function can only be called by the contract owner.
+    function withdraw() public onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
 }
