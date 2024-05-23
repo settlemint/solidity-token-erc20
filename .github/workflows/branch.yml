@@ -111,9 +111,12 @@ jobs:
         run: |
           npm install
 
-      - name: Setup YQ
+      - name: Install YQ
         if: env.subgraph_exists == 'true'
-        uses: chrisdickinson/setup-yq@latest
+        uses: alexellis/arkade-get@master
+        with:
+          print-summary: false
+          yq: latest
 
       - name: Build the subgraph
         if: env.subgraph_exists == 'true'
