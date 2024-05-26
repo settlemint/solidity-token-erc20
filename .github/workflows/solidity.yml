@@ -37,6 +37,6 @@ jobs:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
       docker-image-name: solidity-token-erc20
-      runs-on: foundry
+      runs-on: solidity-token-erc20
       ignition-module: "ignition/modules/GenericERC20.ts"
       subgraph-contract-address-key: "GenericERC20Module#GenericERC20"
