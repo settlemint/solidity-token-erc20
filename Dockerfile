@@ -12,9 +12,8 @@ WORKDIR /usecase
 
 USER root
 
-RUN forge build
-
 RUN npm install
+RUN forge build
 RUN npx hardhat compile
 
 FROM cgr.dev/chainguard/busybox:latest
