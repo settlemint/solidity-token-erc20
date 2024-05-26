@@ -6,18 +6,19 @@ RUN curl -L https://foundry.paradigm.xyz | bash && \
 
 WORKDIR /
 
-RUN git config --global user.email "hello@settlemint.com" && \
-  git config --global user.name "SettleMint" && \
-  forge init usecase --template settlemint/solidity-token-erc20 && \
-  cd usecase && \
-  forge build
+COPY . /usecase
 
-RUN cd usecase/subgraph && \
-  npm install
+WORKDIR /usecase
 
 USER root
+
+RUN forge build
+
+RUN npm install
+RUN npx hardhat compile
 
 FROM cgr.dev/chainguard/busybox:latest
 
 COPY --from=build /usecase /usecase
 COPY --from=build /root/.svm /usecase-svm
+COPY --from=build /root/.cache /usecase-cache
