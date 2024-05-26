@@ -35,8 +35,8 @@ jobs:
     uses: settlemint/smart-contracts-actions/.github/workflows/solidity.yml@main
     secrets:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ANVIL_TESTS_PRIVATE_KEY: ${{ secrets.ANVIL_TESTS_PRIVATE_KEY }}
-      AIKIDO_SECRET_KEY: ${{ secrets.AIKIDO_SECRET_KEY }}
     with:
-      docker-image-name: solidity-empty
+      docker-image-name: solidity-token-erc20
       runs-on: foundry
+      ignition-module: "ignition/modules/GenericERC20.ts"
+      subgraph-contract-address-key: "GenericERC20Module#GenericERC20"
