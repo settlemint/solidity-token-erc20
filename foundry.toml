@@ -13,14 +13,15 @@
   wrap_comments = true
 
 [rpc_endpoints]
-anvil = "http://localhost:8545"
-btp = "${BTP_RPC_URL}"
+  anvil = "http://localhost:8545"
+  btp = "${BTP_RPC_URL}"
 
 [profile.default]
-  src = "src"
-  test = "test"
-  out = "out"
-  libs = ["lib"]
+  src = 'contracts'
+  out = 'out'
+  libs = ['node_modules', 'lib']
+  test = 'test'
+  cache_path  = 'cache_forge'
   solc = "0.8.26"
   optimizer = true
   optimizer_runs = 10_000
@@ -28,3 +29,4 @@ btp = "${BTP_RPC_URL}"
   fuzz = { runs = 1_000 }
   auto_detect_solc = false
   extra_output_files = [ "metadata" ]
+  fs_permissions = [{ access = "read", path = "./deployment-anvil.txt"}, { access = "read", path = "./deployment.txt"} ]
