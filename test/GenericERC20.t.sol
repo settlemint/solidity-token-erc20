@@ -40,4 +40,18 @@ contract GenericERC20Test is Test {
         uint256 mintAmount = 1000 * 10 ** token.decimals();
         token.mint(owner, mintAmount); // This should fail
     }
+
+      function testBurn() public {
+        uint256 burnAmount = 1000 * 10 ** token.decimals();
+        token.burn(burnAmount);
+        uint256 newOwnerBalance = token.balanceOf(owner);
+        assertEq(newOwnerBalance, 99_000 * 10 ** token.decimals());
+    }
+
+    function testFailBurnMoreThanBalance() public {
+        uint256 burnAmount = 200_000 * 10 ** token.decimals();
+        vm.expectRevert("ERC20: burn amount exceeds balance");
+        token.burn(burnAmount); // This should fail
+    }
+
 }
