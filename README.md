@@ -75,7 +75,7 @@ $ anvil
 Deploy to a local anvil node:
 
 ```shell
-$ make deploy-anvil
+$ btp-scs hardhat deploy local -m ignition/modules/GenericERC20.ts
 ```
 
 When prompted to enter a private key, copy one of the private keys shown in the terminal when you start the anvil node.
@@ -83,7 +83,7 @@ When prompted to enter a private key, copy one of the private keys shown in the 
 Deploy to the connected platform node:
 
 ```shell
-$ make deploy-btp
+$ btp-scs hardhat deploy remote -m ignition/modules/GenericERC20.ts
 ```
 
 If you have a private key activated on the connected node, it will be used automatically. Else, you will be prompted to enter a private key. You can copy-paste a private key from the platform.
@@ -97,12 +97,13 @@ $ cast <subcommand>
 ### Deploy your subgraph
 
 ```shell
-$ make subgraph
+$ btp-scs subgraph deploy
 ```
 
 ### Help
 
 ```shell
+$ btp-scs --help
 $ forge --help
 $ anvil --help
 $ cast --help
