@@ -33,74 +33,81 @@ Hardhat consists of:
 
 ## Documentation
 
-- https://console.settlemint.com/documentation/docs/using-platform/integrated-development-environment/
-- https://book.getfoundry.sh/
+- <https://console.settlemint.com/documentation/docs/using-platform/integrated-development-environment/>
+- <https://book.getfoundry.sh/>
 
 ## Usage
 
 ### Build
 
+You can either use Forge:
+
 ```shell
-$ forge build
+btp-scs foundry build
+```
+
+or Hardhat:
+
+```shell
+btp-scs foundry build
 ```
 
 ### Test
 
+With Forge:
+
 ```shell
-$ forge test
+btp-scs foundry test
+```
+
+or Hardhat:
+
+```shell
+btp-scs hardhat test
 ```
 
 ### Format
 
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
+To format your contracts, run
 
 ```shell
-$ forge snapshot
+btp-scs foundry format
 ```
 
-### Anvil
+### Deploy to local network
 
-Anvil is a local development node, open a terminal in the IDE and launch anvil. You can then deploy to it using `make deploy-anvil`
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-Deploy to a local anvil node:
+You can deploy your contracts to a local network. First, run
 
 ```shell
 $ btp-scs hardhat deploy local -m ignition/modules/GenericERC20.ts
 ```
 
-When prompted to enter a private key, copy one of the private keys shown in the terminal when you start the anvil node.
-
-Deploy to the connected platform node:
+then:
 
 ```shell
 $ btp-scs hardhat deploy remote -m ignition/modules/GenericERC20.ts
 ```
 
-If you have a private key activated on the connected node, it will be used automatically. Else, you will be prompted to enter a private key. You can copy-paste a private key from the platform.
+### Deploy to platform network
 
-### Cast
+You can also deploy your contracts to the network running on the platform by executing the following command:
 
 ```shell
-$ cast <subcommand>
+btp-scs hardhat deploy remote -m <DEPLOYMENT_MODULE>
 ```
 
 ### Deploy your subgraph
+
+To index your smart contract events, use The Graph middleware.
+First, edit `subgraph.config.json` to set the addresses of your smart contracts. You can find them in the deployment folder created under `ignation`. Then, run:
 
 ```shell
 $ btp-scs subgraph deploy
 ```
 
 ### Help
+
+To get info about the tasks, run:
 
 ```shell
 $ btp-scs --help
