@@ -79,13 +79,13 @@ btp-scs foundry format
 You can deploy your contracts to a local network. First, run
 
 ```shell
-btp-scs hardhat network
+$ btp-scs hardhat deploy local -m ignition/modules/GenericERC20.ts
 ```
 
 then:
 
 ```shell
-btp-scs hardhat deploy local -m <DEPLOYMENT_MODULE>
+$ btp-scs hardhat deploy remote -m ignition/modules/GenericERC20.ts
 ```
 
 ### Deploy to platform network
@@ -102,7 +102,7 @@ To index your smart contract events, use The Graph middleware.
 First, edit `subgraph.config.json` to set the addresses of your smart contracts. You can find them in the deployment folder created under `ignation`. Then, run:
 
 ```shell
-btp-scs subgraph deploy
+$ btp-scs subgraph deploy
 ```
 
 ### Help
@@ -110,5 +110,8 @@ btp-scs subgraph deploy
 To get info about the tasks, run:
 
 ```shell
-btp-scs --help
+$ btp-scs --help
+$ forge --help
+$ anvil --help
+$ cast --help
 ```
