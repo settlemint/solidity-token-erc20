@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "nomicfoundation.hardhat-solidity",
+    "genieai.chatgpt-vscode",
+    "esbenp.prettier-vscode",
+    "cnshenj.vscode-task-manager",
+    "catppuccin.catppuccin-vsc-icons",
+    "catppuccin.catppuccin-vsc"
+  ]
+}

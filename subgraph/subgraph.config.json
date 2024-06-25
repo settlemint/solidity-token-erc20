@@ -1,0 +1,12 @@
+{
+  "output": "generated/scs.",
+  "chain": "localhost",
+  "datasources": [
+    {
+      "name": "GenericToken",
+      "address": "0x0000000000000000000000000000000000000000",
+      "startBlock": 0,
+      "module": ["erc20", "pausable", "accesscontrol"]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "deployment-module",
+      "description": "Hardhat Ignition Module",
+      "type": "promptString",
+      "default": "ignition/modules/GenericERC20.ts"
+    },
+    {
+      "id": "extra-deployment",
+      "description": "Extra commandline arguments, e.g. --verify",
+      "type": "promptString",
+      "default": ""
+    },
+  ],
+  "tasks": [
+    {
+      "label": "Foundry - Build",
+      "type": "shell",
+      "command": "btp-scs foundry build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Hardhat - Build",
+      "type": "shell",
+      "command": "btp-scs hardhat build",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Foundry - Test",
+      "type": "shell",
+      "command": "btp-scs foundry test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hardhat - Test",
+      "type": "shell",
+      "command": "btp-scs hardhat test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Foundry - Format",
+      "type": "shell",
+      "command": "btp-scs foundry format",
+      "problemMatcher": []
+    },
+    {
+      "label": "Foundry - Start network",
+      "type": "shell",
+      "command": "btp-scs foundry network",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Hardhat - Start network",
+      "type": "shell",
+      "command": "btp-scs hardhat network",
+      "problemMatcher": [],
+      "isBackground": true,
+    },
+    {
+      "label": "Hardhat - Deploy to local network",
+      "type": "shell",
+      "command": "btp-scs hardhat deploy local ${input:extra-deployment} -m ${input:deployment-module}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hardhat - Reset & Deploy to local network",
+      "type": "shell",
+      "command": "btp-scs hardhat deploy local --reset ${input:extra-deployment} -m ${input:deployment-module}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hardhat - Deploy to platform network",
+      "type": "shell",
+      "command": "btp-scs hardhat deploy remote ${input:extra-deployment} -m ${input:deployment-module}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Hardhat - Reset & Deploy to platform network",
+      "type": "shell",
+      "command": "btp-scs hardhat deploy remote --reset ${input:extra-deployment} -m ${input:deployment-module}",
+      "problemMatcher": []
+    },
+    {
+      "label": "The Graph - Deploy or update the subgraph",
+      "type": "shell",
+      "command": "btp-scs subgraph deploy",
+      "problemMatcher": []
+    }
+  ],
+}
