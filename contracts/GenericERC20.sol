@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.26;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
@@ -10,12 +10,21 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 /// @title A generic ERC20 Token
 /// @dev Extends ERC20 with burnable, pausable, and permit functionalities.
 /// @custom:security-contact support@settlemint.com
-contract GenericERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Permit {
+contract GenericERC20 is
+    ERC20,
+    ERC20Burnable,
+    ERC20Pausable,
+    Ownable,
+    ERC20Permit
+{
     /// @dev Initializes the contract by setting a `name` and a `symbol` to the token and mints initial tokens to the
     /// deploying address.
     /// @param name The name of the token.
     /// @param symbol The symbol of the token.
-    constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) ERC20Permit(name) {
+    constructor(
+        string memory name,
+        string memory symbol
+    ) ERC20(name, symbol) Ownable(msg.sender) ERC20Permit(name) {
         // Mint 100,000 tokens to the deploying address, adjusting for the token's decimals.
         _mint(msg.sender, 100_000 * 10 ** decimals());
     }
@@ -44,7 +53,11 @@ contract GenericERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable, ERC20Perm
     /// @param from The address from which tokens are transferred.
     /// @param to The address to which tokens are transferred.
     /// @param value The amount of tokens to be transferred.
-    function _update(address from, address to, uint256 value) internal override(ERC20, ERC20Pausable) {
+    function _update(
+        address from,
+        address to,
+        uint256 value
+    ) internal override(ERC20, ERC20Pausable) {
         super._update(from, to, value);
     }
 }

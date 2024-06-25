@@ -5,7 +5,7 @@
       "id": "deployment-module",
       "description": "Hardhat Ignition Module",
       "type": "promptString",
-      "default": "ignition/modules/GenericERC20.ts"
+      "default": "ignition/modules/main.ts"
     },
     {
       "id": "extra-deployment",
