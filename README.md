@@ -1,3 +1,5 @@
+![OG](OG_Solidity.jpg)
+
 # ERC20
 
 A basic ERC20 token contract.
@@ -49,7 +51,7 @@ btp-scs foundry build
 or Hardhat:
 
 ```shell
-btp-scs foundry build
+btp-scs hardhat build
 ```
 
 ### Test
@@ -79,13 +81,7 @@ btp-scs foundry format
 You can deploy your contracts to a local network. First, run
 
 ```shell
-$ btp-scs hardhat deploy local -m ignition/modules/GenericERC20.ts
-```
-
-then:
-
-```shell
-$ btp-scs hardhat deploy remote -m ignition/modules/GenericERC20.ts
+btp-scs hardhat deploy local -m ignition/modules/main.ts
 ```
 
 ### Deploy to platform network
@@ -93,7 +89,7 @@ $ btp-scs hardhat deploy remote -m ignition/modules/GenericERC20.ts
 You can also deploy your contracts to the network running on the platform by executing the following command:
 
 ```shell
-btp-scs hardhat deploy remote -m <DEPLOYMENT_MODULE>
+btp-scs hardhat deploy remote -m ignition/modules/main.ts
 ```
 
 ### Deploy your subgraph
@@ -102,7 +98,7 @@ To index your smart contract events, use The Graph middleware.
 First, edit `subgraph.config.json` to set the addresses of your smart contracts. You can find them in the deployment folder created under `ignation`. Then, run:
 
 ```shell
-$ btp-scs subgraph deploy
+btp-scs subgraph deploy
 ```
 
 ### Help
@@ -110,8 +106,8 @@ $ btp-scs subgraph deploy
 To get info about the tasks, run:
 
 ```shell
-$ btp-scs --help
-$ forge --help
-$ anvil --help
-$ cast --help
+btp-scs --help
+forge --help
+anvil --help
+cast --help
 ```
