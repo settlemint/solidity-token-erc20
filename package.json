@@ -1,14 +1,39 @@
 {
-  "name": "solidity-empty",
+  "name": "@settlemint/solidity-token-erc20",
+  "description": "Smart contract set to build an ERC20 token in SettleMint",
   "version": "7.0.0",
-  "description": "Solidity Empty",
+  "private": false,
+  "license": "FSL-1.1-MIT",
+  "author": {
+    "name": "SettleMint",
+    "email": "support@settlemint.com",
+    "url": "https://settlemint.com"
+  },
+  "homepage": "https://github.com/settlemint/solidity-token-erc20/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/settlemint/solidity-token-erc20.git"
+  },
+  "bugs": {
+    "url": "https://github.com/settlemint/solidity-token-erc20/issues",
+    "email": "support@settlemint.com"
+  },
   "keywords": [
     "solidity",
-    "subgraph"
+    "subgraph",
+    "blockchain-transformation",
+    "erc20"
   ],
-  "author": "SettleMint <hello@settlemint.com>",
-  "license": "MIT",
-  "devDependencies": {
+  "files": [
+    "/contracts",
+    "/ignition",
+    "/lib",
+    "/subgraph",
+    "/test",
+    "/out",
+    "/artifacts"
+  ],
+  "dependencies": {
     "@amxx/graphprotocol-utils": "1.1.0",
     "@graphprotocol/graph-cli": "0.80.0",
     "@graphprotocol/graph-ts": "0.35.1",
