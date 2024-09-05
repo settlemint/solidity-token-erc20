@@ -58,6 +58,8 @@ Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, te
    - **Hardhat - Deploy to Local Network**: Deploys contracts to a local network.
    - **Hardhat - Deploy to Platform Network**: Deploys contracts to the specified platform network.
    - **The Graph - Build & Deploy**: Builds and deploys the subgraph.
+  
+Alternatively, you can use the IDE terminal and deploy your contract using common commands from [Hardhat](https://hardhat.org/ignition/docs/guides/deploy) or [Foundry](https://book.getfoundry.sh/forge/deploying).
 
 ### Learn More about Foundry and Hardhat
 
