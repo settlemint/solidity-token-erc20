@@ -3,7 +3,7 @@
   <p align="center">
     ✨ <a href="https://settlemint.com">https://settlemint.com</a> ✨
     <br/>
-    Build your own blockchain usecase with ease.
+    Build your own blockchain use case with ease.
   </p>
 </p>
 <br/>
@@ -25,40 +25,64 @@
   <br />
 </div>
 
-## Get started
+## Get Started
 
-Launch this smart contract set in SettleMint under the `Smart Contract Sets` section. This will automatically link it to your own blockchain node and make use of the private keys living in the platform.
+This repository provides a generic ERC20 token contract with functionalities like burning, pausing, and permits. You can either:
 
-If you want to use it separately, bootstrap a new project using
+- **Launch this smart contract set directly in SettleMint**: Under the `Smart Contract Sets` section. This will automatically link the contract to your blockchain node and use the private keys stored in the platform.
+  
+  For detailed instructions on deploying smart contracts using SettleMint, refer to this [deployment guide](https://console.settlemint.com/documentation/docs/using-platform/add_smart_contract_sets/deploying_a_contract/).
 
-```shell
-forge init my-project --template settlemint/solidity-token-erc20
-```
+- **Integrate it into your own project**:
+  - Bootstrap a new project using Forge:
+    ```shell
+    forge init my-project --template settlemint/solidity-token-erc20
+    ```
+  - Or, add it as a dependency to your existing project using npm:
+    ```shell
+    npm install @settlemint/solidity-token-erc20
+    ```
 
-Or if you want to use this set as a dependency of your own,
+## Running and Deploying Contracts
 
-```shell
-npm install @settlemint/solidity-token-erc20
-```
+This project leverages both Foundry and Hardhat, two powerful Ethereum development environments that provide flexibility and speed.
 
-## DX: Foundry & Hardhat hybrid
+### Deploy Contracts & Run Tasks in VSCode
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Using Visual Studio Code (VSCode), you can easily run tasks like building, testing, and deploying your contracts. Here’s how to get started:
 
-Foundry consists of:
+1. Open the Tasks panel by pressing `Cmd + Shift + P` (Mac) or `Ctrl + Shift + P` (Windows/Linux) or by selecting it from the left menu.
+2. Select the desired task from the list. Available tasks include:
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+   - **Foundry - Build**: Builds the Foundry contracts.
+   - **Hardhat - Build**: Builds the Hardhat contracts.
+   - **Foundry - Test**: Runs tests using Foundry.
+   - **Hardhat - Test**: Runs tests using Hardhat.
+   - **Foundry - Start Network**: Starts a local Ethereum network using Foundry.
+   - **Hardhat - Start Network**: Starts a local Ethereum network using Hardhat.
+   - **Hardhat - Deploy to Local Network**: Deploys contracts to a local network.
+   - **Hardhat - Deploy to Platform Network**: Deploys contracts to the specified platform network.
+   - **The Graph - Build & Deploy**: Builds and deploys the subgraph.
 
-**Hardhat is a Flexible, Extensible, Fast Ethereum development environment for professionals in typescript**
+### Learn More about Foundry and Hardhat
 
-Hardhat consists of:
+To fully leverage the capabilities of Foundry and Hardhat, you can explore our comprehensive documentation [here](https://console.settlemint.com/documentation/docs/using-platform/add_smart_contract_sets/smart_contracts/).
 
-- **Hardhat Runner**: Hardhat Runner is the main component you interact with when using Hardhat. It's a flexible and extensible task runner that helps you manage and automate the recurring tasks inherent to developing smart contracts and dApps.
-- **Hardhat Ignition**: Declarative deployment system that enables you to deploy your smart contracts without navigating the mechanics of the deployment process.
-- **Hardhat Network**: Declarative deployment system that enables you to deploy your smart contracts without navigating the mechanics of the deployment process.
+## ERC20 Contract Features
+
+This repository includes a customizable ERC20 token contract with the following features:
+
+- **Burnable**: Allows token holders to burn their tokens, reducing the total supply.
+- **Pausable**: The contract owner can pause and unpause all token transfers.
+- **Permit**: Supports EIP-2612 for approvals via signatures.
+- **Mintable**: The owner can mint new tokens.
+
+### Key Functions Overview
+
+- **`pause()`**: Pauses all token transfers. Only callable by the owner.
+- **`unpause()`**: Unpauses token transfers. Only callable by the owner.
+- **`mint(address to, uint256 amount)`**: Mints new tokens to the specified address. Only callable by the owner.
+- **`burn(uint256 amount)`**: Burns a specified amount of tokens from the caller's balance.
 
 ## Documentation
 
@@ -66,5 +90,3 @@ Hardhat consists of:
 - [SettleMint Documentation](https://console.settlemint.com/documentation/docs/using-platform/integrated-development-environment/)
 - [Foundry Documentation](https://book.getfoundry.sh/)
 - [Hardhat Documentation](https://hardhat.org/hardhat-runner/docs/getting-started)
-
-
