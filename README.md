@@ -63,21 +63,33 @@ Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, te
 
 To fully leverage the capabilities of Foundry and Hardhat, you can explore our comprehensive documentation [here](https://console.settlemint.com/documentation/docs/using-platform/add_smart_contract_sets/smart_contracts/).
 
-## ERC20 Contract Features
 
-This repository includes a customizable ERC20 token contract with the following features:
+### ERC20 Contract Features
 
-- **Burnable**: Allows token holders to burn their tokens, reducing the total supply.
-- **Pausable**: The contract owner can pause and unpause all token transfers.
-- **Permit**: Supports EIP-2612 for approvals via signatures.
-- **Mintable**: The owner can mint new tokens.
+This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries, offers the following capabilities:
 
-### Key Functions Overview
+- **Mintable**: Allows the contract owner to generate new tokens.
+- **Burnable**: Token holders can permanently destroy their tokens, reducing the total supply.
+- **Pausable**: The contract owner can temporarily halt and later resume all token transfers.
+- **Permit**: Implements EIP-2612 for token approvals via cryptographic signatures, enabling gasless transactions.
 
-- **`pause()`**: Pauses all token transfers. Only callable by the owner.
-- **`unpause()`**: Unpauses token transfers. Only callable by the owner.
-- **`mint(address to, uint256 amount)`**: Mints new tokens to the specified address. Only callable by the owner.
-- **`burn(uint256 amount)`**: Burns a specified amount of tokens from the caller's balance.
+### Key Functions
+
+- **`pause()` / `unpause()`**: Empowers the owner to suspend and restore token transfers as needed.
+- **`mint(address to, uint256 amount)`**: Creates and allocates new tokens to a specified address.
+- **`burn(uint256 amount)`**: Reduces the token supply by burning tokens from the caller’s balance.
+- **`_update(address from, address to, uint256 value)`**: Ensures seamless interaction between transfer operations and pausing mechanisms.
+
+### OpenZeppelin Libraries Utilized
+
+This contract integrates the following OpenZeppelin components:
+
+- **ERC20**: A robust implementation of the ERC20 token standard.
+- **ERC20Burnable**: Facilitates the burning of tokens by holders.
+- **ERC20Pausable**: Adds functionality to pause and resume token operations.
+- **ERC20Permit**: Supports EIP-2612 for efficient off-chain approvals.
+- **Ownable**: Provides ownership and access control, ensuring only authorized actions by the contract owner.
+
 
 ## Documentation
 
