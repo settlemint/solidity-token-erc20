@@ -42,20 +42,15 @@ This repository provides a generic ERC20 token contract with functionalities lik
     ```shell
     npm install @settlemint/solidity-token-erc20
     ```
+### Deploy Contracts & Run Tasks in your Integrated IDE
 
-## Running and Deploying Contracts
-
-This project leverages both Foundry and Hardhat, two powerful Ethereum development environments that provide flexibility and speed.
-
-### Deploy Contracts & Run Tasks in VSCode
-
-Using Visual Studio Code (VSCode), you can easily run tasks like building, testing, and deploying your contracts. Here’s how to get started:
+Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, testing, and deploying your contracts. Here’s how to get started:
 
 1. Open the Tasks panel by pressing `Cmd + Shift + P` (Mac) or `Ctrl + Shift + P` (Windows/Linux) or by selecting it from the left menu.
 2. Select the desired task from the list. Available tasks include:
 
-   - **Foundry - Build**: Builds the Foundry contracts.
-   - **Hardhat - Build**: Builds the Hardhat contracts.
+   - **Foundry - Compile**: Compiles the Foundry contracts.
+   - **Hardhat - Compile**: Compiles the Hardhat contracts.
    - **Foundry - Test**: Runs tests using Foundry.
    - **Hardhat - Test**: Runs tests using Hardhat.
    - **Foundry - Start Network**: Starts a local Ethereum network using Foundry.
