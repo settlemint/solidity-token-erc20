@@ -145,7 +145,6 @@ btp-scs subgraph deploy
 
 To learn more about using subgraphs and other SettleMint middleware, please visit [this link](https://console.settlemint.com/documentation/docs/using-platform/middleware/#the-graph-middleware).
 
-Let me know if you need further tweaks!
 ## ERC20 Contract Features
 
 This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries, offers the following capabilities:
