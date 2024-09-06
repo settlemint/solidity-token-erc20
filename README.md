@@ -42,6 +42,34 @@ This repository provides a generic ERC20 token contract with functionalities lik
     ```shell
     npm install @settlemint/solidity-token-erc20
     ```
+
+## ERC20 Contract Features
+
+This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries, offers the following capabilities:
+
+- **Mintable**: Allows the contract owner to generate new tokens.
+- **Burnable**: Token holders can permanently destroy their tokens, reducing the total supply.
+- **Pausable**: The contract owner can temporarily halt and later resume all token transfers.
+- **Permit**: Implements EIP-2612 for token approvals via cryptographic signatures, enabling gasless transactions.
+
+## Key Functions
+
+- **`pause()` / `unpause()`**: Empowers the owner to suspend and restore token transfers as needed.
+- **`mint(address to, uint256 amount)`**: Creates and allocates new tokens to a specified address.
+- **`burn(uint256 amount)`**: Reduces the token supply by burning tokens from the caller’s balance.
+- **`_update(address from, address to, uint256 value)`**: Ensures seamless interaction between transfer operations and pausing mechanisms.
+
+## OpenZeppelin Libraries Utilized
+
+This contract integrates the following OpenZeppelin components:
+
+- **ERC20**: A robust implementation of the ERC20 token standard.
+- **ERC20Burnable**: Facilitates the burning of tokens by holders.
+- **ERC20Pausable**: Adds functionality to pause and resume token operations.
+- **ERC20Permit**: Supports EIP-2612 for efficient off-chain approvals.
+- **Ownable**: Provides ownership and access control, ensuring only authorized actions by the contract owner.
+
+    
 ## Deploy Contracts & Run Tasks in your Settlemint Integrated IDE
 
 Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, testing, and deploying your contracts. Here’s how to get started:
@@ -144,32 +172,6 @@ btp-scs subgraph deploy
 ```
 
 To learn more about using subgraphs and other SettleMint middleware, please visit [this link](https://console.settlemint.com/documentation/docs/using-platform/middleware/#the-graph-middleware).
-
-## ERC20 Contract Features
-
-This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries, offers the following capabilities:
-
-- **Mintable**: Allows the contract owner to generate new tokens.
-- **Burnable**: Token holders can permanently destroy their tokens, reducing the total supply.
-- **Pausable**: The contract owner can temporarily halt and later resume all token transfers.
-- **Permit**: Implements EIP-2612 for token approvals via cryptographic signatures, enabling gasless transactions.
-
-## Key Functions
-
-- **`pause()` / `unpause()`**: Empowers the owner to suspend and restore token transfers as needed.
-- **`mint(address to, uint256 amount)`**: Creates and allocates new tokens to a specified address.
-- **`burn(uint256 amount)`**: Reduces the token supply by burning tokens from the caller’s balance.
-- **`_update(address from, address to, uint256 value)`**: Ensures seamless interaction between transfer operations and pausing mechanisms.
-
-## OpenZeppelin Libraries Utilized
-
-This contract integrates the following OpenZeppelin components:
-
-- **ERC20**: A robust implementation of the ERC20 token standard.
-- **ERC20Burnable**: Facilitates the burning of tokens by holders.
-- **ERC20Pausable**: Adds functionality to pause and resume token operations.
-- **ERC20Permit**: Supports EIP-2612 for efficient off-chain approvals.
-- **Ownable**: Provides ownership and access control, ensuring only authorized actions by the contract owner.
 
 
 ## Documentation
