@@ -42,7 +42,7 @@ This repository provides a generic ERC20 token contract with functionalities lik
     ```shell
     npm install @settlemint/solidity-token-erc20
     ```
-### Deploy Contracts & Run Tasks in your Integrated IDE
+### Deploy Contracts & Run Tasks in your Settlemint Integrated IDE
 
 Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, testing, and deploying your contracts. Here’s how to get started:
 
@@ -57,6 +57,8 @@ Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, te
    - **Hardhat - Start Network**: Starts a local Ethereum network using Hardhat.
    - **Hardhat - Deploy to Local Network**: Deploys contracts to a local network.
    - **Hardhat - Deploy to Platform Network**: Deploys contracts to the specified platform network.
+   - **The Graph - Codegen the subgraph types**: Codegen the subgraph types: Generates the necessary types for The Graph subgraph.
+   - **The Graph - Build the subgraph**:  Builds the subgraph.
    - **The Graph - Build & Deploy**: Builds and deploys the subgraph.
   
 Alternatively, you can use the IDE terminal and deploy your contract using common commands from [Hardhat](https://hardhat.org/ignition/docs/guides/deploy) or [Foundry](https://book.getfoundry.sh/forge/deploying).
