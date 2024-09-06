@@ -42,7 +42,7 @@ This repository provides a generic ERC20 token contract with functionalities lik
     ```shell
     npm install @settlemint/solidity-token-erc20
     ```
-### Deploy Contracts & Run Tasks in your Settlemint Integrated IDE
+## Deploy Contracts & Run Tasks in your Settlemint Integrated IDE
 
 Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, testing, and deploying your contracts. Here’s how to get started:
 
@@ -60,15 +60,93 @@ Using SettleMint’s Integrated IDE, you can easily run tasks like compiling, te
    - **The Graph - Codegen the subgraph types**: Codegen the subgraph types: Generates the necessary types for The Graph subgraph.
    - **The Graph - Build the subgraph**:  Builds the subgraph.
    - **The Graph - Build & Deploy**: Builds and deploys the subgraph.
-  
-Alternatively, you can use the IDE terminal and deploy your contract using common commands from [Hardhat](https://hardhat.org/ignition/docs/guides/deploy) or [Foundry](https://book.getfoundry.sh/forge/deploying).
+     
+Alternatively, you can use the IDE terminal to test and deploy your contracts.
 
-### Learn More about Foundry and Hardhat
+## Deploy Contracts via the Terminal
+
+#### Build
+
+You can either use Forge:
+
+```shell
+btp-scs foundry build
+```
+
+or Hardhat:
+
+```shell
+btp-scs hardhat build
+```
+
+#### Test
+
+With Forge:
+
+```shell
+btp-scs foundry test
+```
+
+or Hardhat:
+
+```shell
+btp-scs hardhat test
+```
+
+#### Format
+
+To format your contracts, run
+
+```shell
+btp-scs foundry format
+```
+
+#### Deploy to local network
+
+You can deploy your contracts to a local network. First, run
+
+```shell
+btp-scs hardhat network
+```
+
+then:
+
+```shell
+btp-scs hardhat deploy local -m ignition/modules/main.ts
+```
+
+#### Deploy to platform network
+
+You can also deploy your contracts to the network running on the platform by executing the following command:
+
+```shell
+btp-scs hardhat deploy remote -m ignition/modules/main.ts
+```
+
+#### Help
+
+To get info about the tasks, run:
+
+```shell
+btp-scs --help
+```
 
 To fully leverage the capabilities of Foundry and Hardhat, you can explore our comprehensive documentation [here](https://console.settlemint.com/documentation/docs/using-platform/add_smart_contract_sets/smart_contracts/).
 
 
-### ERC20 Contract Features
+## Deploy Your Subgraph
+
+To index your smart contract events, use [The Graph middleware](https://console.settlemint.com/documentation/docs/using-platform/middleware/#the-graph-middleware).  
+First, edit `subgraph.config.json` to set the addresses of your smart contracts. You can find these in the deployment folder created under `ignition`. Then, run the following command:
+
+```shell
+btp-scs subgraph deploy
+```
+
+To learn more about using subgraphs and other SettleMint middleware, please visit [this link](https://console.settlemint.com/documentation/docs/using-platform/middleware/#the-graph-middleware).
+
+Let me know if you need further tweaks!
+## ERC20 Contract Features
 
 This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries, offers the following capabilities:
 
@@ -77,14 +155,14 @@ This ERC20 token contract, built on OpenZeppelin’s industry-standard libraries
 - **Pausable**: The contract owner can temporarily halt and later resume all token transfers.
 - **Permit**: Implements EIP-2612 for token approvals via cryptographic signatures, enabling gasless transactions.
 
-### Key Functions
+## Key Functions
 
 - **`pause()` / `unpause()`**: Empowers the owner to suspend and restore token transfers as needed.
 - **`mint(address to, uint256 amount)`**: Creates and allocates new tokens to a specified address.
 - **`burn(uint256 amount)`**: Reduces the token supply by burning tokens from the caller’s balance.
 - **`_update(address from, address to, uint256 value)`**: Ensures seamless interaction between transfer operations and pausing mechanisms.
 
-### OpenZeppelin Libraries Utilized
+## OpenZeppelin Libraries Utilized
 
 This contract integrates the following OpenZeppelin components:
 
