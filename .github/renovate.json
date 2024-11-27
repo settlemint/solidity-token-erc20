@@ -23,7 +23,9 @@
   "packageRules": [
     {
       "groupName": "OpenZeppelin packages",
-      "matchPackagePatterns": ["^@openzeppelin/"]
+      "matchPackageNames": [
+        "/^@openzeppelin//"
+      ]
     }
   ],
   "hostRules": [
