@@ -3,6 +3,8 @@ pragma solidity ^0.8.24;
 
 import "forge-std/Test.sol";
 import "../contracts/GenericERC20.sol";
+import { Pausable } from "@openzeppelin/contracts/utils/Pausable.sol";
+import { IERC20Errors } from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
 
 contract GenericERC20Test is Test {
     GenericERC20 token;
@@ -15,7 +17,7 @@ contract GenericERC20Test is Test {
         token = new GenericERC20("GenericToken", "GT");
     }
 
-    function testInitialMint() public {
+    function testInitialMint() public view {
         uint256 ownerBalance = token.balanceOf(owner);
         assertEq(ownerBalance, 100_000 * 10 ** token.decimals());
     }
@@ -35,9 +37,10 @@ contract GenericERC20Test is Test {
         assertFalse(token.paused());
     }
 
-    function testFailMintWhenPaused() public {
+    function test_RevertOnMintWhenPaused() public {
         token.pause();
         uint256 mintAmount = 1000 * 10 ** token.decimals();
+        vm.expectRevert(abi.encodeWithSelector(Pausable.EnforcedPause.selector));
         token.mint(owner, mintAmount); // This should fail
     }
 
@@ -48,9 +51,13 @@ contract GenericERC20Test is Test {
         assertEq(newOwnerBalance, 99_000 * 10 ** token.decimals());
     }
 
-    function testFailBurnMoreThanBalance() public {
+    function test_RevertOnBurnMoreThanBalance() public {
         uint256 burnAmount = 200_000 * 10 ** token.decimals();
-        vm.expectRevert("ERC20: burn amount exceeds balance");
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                IERC20Errors.ERC20InsufficientBalance.selector, owner, 100_000 * 10 ** token.decimals(), burnAmount
+            )
+        );
         token.burn(burnAmount); // This should fail
     }
 }
